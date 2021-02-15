@@ -1,0 +1,29 @@
+# -------------------------------------------------------------------------------------
+# Service File that sets the fans to a specific speed on startup. Do not use this file 
+# if you are already using R210II-IPMITemp.sh.
+#
+# Requires:
+# ipmitool – apt-get install ipmitool
+# run on startup - systemctl enable fan
+# -------------------------------------------------------------------------------------
+
+[Unit]
+Description=Manual Fan Speed Adjustments
+Before=network.target
+After=start.target
+
+[Service]
+WorkingDirectory=/root/
+
+Type=simple
+
+User=root
+Group=root
+
+#Enable Manual Control
+ExecStartPre=/usr/bin/ipmitool raw 0x30 0x30 0x01 0x00
+#Set fan speeds to 40%
+ExecStart=-/usr/bin/ipmitool raw 0x30 0x30 0x02 0xff 0x1D
+
+[Install]
+WantedBy=multi-user.target
