@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------------
 # Script for checking the temperature reported by the ambient temperature sensor,
 # and if deemed too high send the raw IPMI command to enable dynamic fan control.
+# Using crontab is recommended.
 #
 # Requires:
 # ipmitool – apt-get install ipmitool
